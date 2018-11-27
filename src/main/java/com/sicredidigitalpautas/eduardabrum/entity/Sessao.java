@@ -2,12 +2,25 @@ package com.sicredidigitalpautas.eduardabrum.entity;
 
 import com.sicredidigitalpautas.eduardabrum.enumerator.StatusSessaoEnum;
 import com.sicredidigitalpautas.eduardabrum.enumerator.converter.StatusSessaoEnumConverter;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -20,6 +33,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"pauta"})
 @Entity
 public class Sessao implements Serializable {
 
@@ -40,9 +54,10 @@ public class Sessao implements Serializable {
     @Column(name = "DURACAO")
     private Integer duracao;
 
-    @NotNull()
     @Convert(converter = StatusSessaoEnumConverter.class)
     @Column(name = "STATUS_SESSAO")
     private StatusSessaoEnum statusSessaoEnum;
 
+    @OneToOne(mappedBy = "sessao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Pauta pauta;
 }
