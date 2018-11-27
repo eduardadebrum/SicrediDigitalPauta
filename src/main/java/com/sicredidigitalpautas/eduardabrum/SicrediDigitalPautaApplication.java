@@ -11,6 +11,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * Classe para inicialização do Deploy da aplicação.
+ *
+ * @author Eduarda de Brum Lucena
  */
 @SpringBootApplication
 @EnableAspectJAutoProxy

@@ -2,12 +2,25 @@ package com.sicredidigitalpautas.eduardabrum.entity;
 
 import com.sicredidigitalpautas.eduardabrum.enumerator.SimOrNaoEnum;
 import com.sicredidigitalpautas.eduardabrum.enumerator.converter.SimOrNaoEnumConverter;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * Classe de Mapeamento para a tabela de Votação.
@@ -16,6 +29,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"pauta", "eleitor"})
@@ -39,6 +53,7 @@ public class Votacao implements Serializable {
     private Integer idPauta;
 
     @Convert(converter = SimOrNaoEnumConverter.class)
+    @Column(name = "VOTO")
     private SimOrNaoEnum simOrNaoEnum;
 
     @ManyToOne()
